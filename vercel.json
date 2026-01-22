@@ -15,7 +15,7 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://monitoring-mbg-be-vkft.vercel.app",
+        "APP_URL": "https://monitoring-mbg.vercel.app",
         "APP_KEY": "base64:kIssTvo9dM7bHfJSWH3FKGlUmf9m3Aqf0CLK/EX75/s=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
