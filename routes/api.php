@@ -24,4 +24,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/rekap', [LaporanController::class, 'rekap']);
     Route::patch('/lapor/{id}/status', [LaporanController::class, 'updateStatus']);// Route Update Status (Butuh ID laporan)
     Route::post('/lapor/{id}/upload', [LaporanController::class, 'uploadBukti']);// Route Upload Foto (Butuh ID laporan)
+    
+});
+    Route::get('/clear-cache', function() {
+    Artisan::call('route:clear');
+    return "Route cache cleared!";
 });
