@@ -2,9 +2,24 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan; // <-- Tambahkan ini agar Artisan terbaca
+use Illuminate\Support\Facades\Artisan; // <-- Agar Artisan terbaca
 use App\Http\Controllers\Api\LaporanController;
 use App\Http\Controllers\Api\AuthController;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+*/
+
+// Rute Dasar untuk mengecek status API di Vercel
+Route::get('/', function () {
+    return response()->json([
+        'status' => 'API is running',
+        'project' => 'Sistem Monitoring MBG',
+        'version' => '1.0.0'
+    ]);
+});
 
 // === PUBLIC ROUTES (Bisa diakses tanpa login) ===
 Route::post('/register', [AuthController::class, 'register']);
@@ -34,5 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
 // Route untuk bersihkan cache (Sangat berguna di Vercel)
 Route::get('/clear-cache', function() {
     Artisan::call('route:clear');
-    return response()->json(["message" => "Route cache cleared!"]);
+    Artisan::call('config:clear'); // Ditambahkan untuk pembersihan lebih maksimal
+    return response()->json(["message" => "Route and Config cache cleared!"]);
 });
