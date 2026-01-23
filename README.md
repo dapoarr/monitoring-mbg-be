@@ -1,7 +1,6 @@
 # 📡 Dokumentasi API - Monitoring MBG Sekolah
 
-Backend ini dibuat menggunakan **Laravel 10** dan sudah dideploy ke Vercel.
-Dokumentasi ini ditujukan untuk tim Frontend (Angular/Flutter/React) agar bisa mengintegrasikan API dengan benar.
+Backend ini dibuat menggunakan **Laravel 10** dan telah dideploy ke Vercel. Dokumentasi ini ditujukan untuk tim Frontend (Angular/Flutter/React) agar bisa mengintegrasikan API dengan benar.
 
 ---
 
@@ -39,35 +38,35 @@ Gunakan akun ini untuk mengetes login dan fitur per role:
 
 ---
 
-## 🚀 Daftar Endpoint
+## 🚀 Daftar Endpoint Produksi (Siap Pakai)
+
+Tim Frontend sudah bisa mulai bekerja dengan menggunakan link produksi berikut:
+
+| Nama Fitur | Method | URL Lengkap |
+| :--- | :--- | :--- |
+| **Cek Koneksi** | `GET` | `https://monitoring-mbg.vercel.app/api` |
+| **Login** | `POST` | `https://monitoring-mbg.vercel.app/api/login` |
+| **Register** | `POST` | `https://monitoring-mbg.vercel.app/api/register` |
+| **Profil User** | `GET` | `https://monitoring-mbg.vercel.app/api/user` |
+| **Clear Cache** | `GET` | `https://monitoring-mbg.vercel.app/api/clear-cache` |
+
+---
+
+## 📊 Detail Endpoint
 
 ### 1. Login (Mendapatkan Token)
 * **Method:** `POST`
 * **URL:** `/login`
-* **Body (Form-Data / JSON):**
+* **Body (JSON):**
     ```json
     {
         "email": "budi@sekolah.id",
         "password": "123456"
     }
     ```
-* **Response Sukses (200 OK):**
-    Frontend **harus menyimpan** `token` dan `role` ke LocalStorage/SharedPreferences.
-    ```json
-    {
-        "message": "Login berhasil",
-        "user": {
-            "id": 1,
-            "nama": "Pak Budi",
-            "email": "budi@sekolah.id",
-            "role": "guru"
-        },
-        "token": "13|LaravelSanctumTokenPanjangSekali..."
-    }
-    ```
+* **Response Sukses (200 OK):** Frontend **harus menyimpan** `token` dan `role` ke LocalStorage/SharedPreferences.
 
 ### 2. Cek User Saat Ini (Profile)
-Mengambil data user yang sedang login berdasarkan token.
 * **Method:** `GET`
 * **URL:** `/user`
 * **Header:** Wajib `Authorization: Bearer <token>`
@@ -75,45 +74,30 @@ Mengambil data user yang sedang login berdasarkan token.
 ### 3. Logout (Hapus Token)
 * **Method:** `POST`
 * **URL:** `/logout`
-* **Header:** Wajib `Authorization: Bearer <token>`
 * **Keterangan:** Setelah ini token lama tidak akan bisa dipakai lagi.
 
 ---
 
-## 📊 Endpoint Khusus Role (Dashboard)
+## 🏗️ Endpoint Khusus Role (Dashboard)
 
-Endpoint ini hanya bisa diakses jika role user sesuai.
+Hanya bisa diakses jika role user sesuai.
 
-### A. Dashboard Guru
-* **Method:** `GET`
-* **URL:** `/dashboard/guru`
-* **Header:** Wajib `Authorization: Bearer <token>`
-* **Akses:** Hanya user dengan role `guru`.
-
-### B. Dashboard Kepala Sekolah
-* **Method:** `GET`
-* **URL:** `/dashboard/kepsek`
-* **Header:** Wajib `Authorization: Bearer <token>`
-* **Akses:** Hanya user dengan role `kepsek`.
-
-### C. Dashboard Admin TU
-* **Method:** `GET`
-* **URL:** `/dashboard/admin`
-* **Header:** Wajib `Authorization: Bearer <token>`
-* **Akses:** Hanya user dengan role `admin`.
+- **Dashboard Guru:** `GET /dashboard/guru`
+- **Dashboard Kepala Sekolah:** `GET /dashboard/kepsek`
+- **Dashboard Admin TU:** `GET /dashboard/admin`
 
 ---
 
 ## 🐛 Troubleshooting (Jika Error)
 
-1.  **Error 401 (Unauthenticated):**
+1. **Error 401 (Unauthenticated):**
     * Cek apakah token sudah dikirim di Header?
     * Apakah formatnya benar? (`Bearer spasi token`)
     * Apakah token sudah expired/logout? Coba login ulang.
 
-2.  **Error 500 (Server Error):**
+2. **Error 500 (Server Error):**
     * Biasanya terjadi jika header `Accept: application/json` lupa dikirim.
     * Atau ada masalah di backend (Hubungi Backend Dev).
 
-3.  **Error CORS:**
-    * Jika dites dari browser langsung (Localhost frontend ke Vercel backend), pastikan Backend sudah mengizinkan domain frontend.
+3. **Error CORS:**
+    * Pastikan Backend sudah mengizinkan domain frontend jika diakses langsung dari browser.
